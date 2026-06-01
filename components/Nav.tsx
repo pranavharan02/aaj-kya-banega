@@ -5,30 +5,28 @@ import { usePathname } from 'next/navigation'
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/inventory', label: 'Inventory' },
+  { href: '/inventory', label: 'Pantry' },
   { href: '/settings', label: 'Settings' },
 ]
 
 export function Nav() {
   const pathname = usePathname()
-
-  // Hide nav on maid view
   if (pathname?.startsWith('/maid')) return null
 
   return (
-    <nav className="flex items-center justify-between py-5 border-b border-[#E0E0E0]">
-      <Link href="/" className="text-xl font-semibold tracking-tight">
-        Aaj Kya Banega
+    <nav className="flex items-center justify-between py-6">
+      <Link href="/" className="text-[22px] font-bold tracking-tight text-[#2D2A26]">
+        आज क्या बनेगा?
       </Link>
-      <div className="flex gap-4 text-sm">
+      <div className="flex gap-1">
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={`px-3 py-1.5 rounded-lg transition-colors ${
+            className={`px-4 py-2 rounded-full text-[15px] font-medium transition-all ${
               pathname === link.href
-                ? 'bg-[#1A1A1A] text-white'
-                : 'text-[#6B6B6B] hover:text-[#1A1A1A]'
+                ? 'bg-[#2D2A26] text-white'
+                : 'text-[#8C8680] hover:text-[#2D2A26] hover:bg-[#F0EDE8]'
             }`}
           >
             {link.label}
