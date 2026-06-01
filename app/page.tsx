@@ -50,7 +50,7 @@ export default function Home() {
   }
 
   function shiftWeek(delta: number) {
-    const d = new Date(weekStart + 'T00:00:00')
+    const d = new Date(weekStart + 'T12:00:00')
     d.setDate(d.getDate() + delta * 7)
     setWeekStart(formatDate(d))
   }
@@ -101,7 +101,7 @@ export default function Home() {
             {items.slice(0, 4).map(item => (
               <div key={item.id} className="bg-[#F5F5F5] rounded-2xl p-4">
                 <p className="text-xs text-[#6B6B6B]">
-                  {new Date(item.date + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })}
+                  {new Date(item.date + 'T12:00:00').toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })}
                 </p>
                 <p className="font-medium text-sm mt-1 truncate">{item.dish?.name_en}</p>
               </div>

@@ -173,7 +173,7 @@ export default function MenuCalendarPage() {
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-[#6B6B6B]">
                     {DAY_NAMES[item.day_of_week]},{' '}
-                    {new Date(item.date + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                    {new Date(item.date + 'T12:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
                   </p>
                   <p className="font-semibold text-base mt-0.5 truncate">{dish.name_en}</p>
                   <div className="flex gap-1.5 items-center mt-1 flex-wrap">

@@ -126,17 +126,18 @@ Respond in JSON only:
 
     const dishMap = new Map(dishes?.map(d => [d.slug, d]) || [])
 
-    // Create menu items
-    const monday = new Date(week_start_date + 'T00:00:00')
+    // Create menu items — use date arithmetic on the YYYY-MM-DD string directly
+    // to avoid timezone issues (server may be in different TZ than user)
     const menuItems = menuPicks.map((pick, i) => {
-      const date = new Date(monday)
-      date.setDate(date.getDate() + i)
+      const d = new Date(week_start_date + 'T12:00:00Z')
+      d.setUTCDate(d.getUTCDate() + i)
+      const dateStr = d.toISOString().split('T')[0]
       const dish = dishMap.get(pick.slug)
       return {
         menu_id: menu.id,
         dish_id: dish?.id,
         day_of_week: i,
-        date: date.toISOString().split('T')[0],
+        date: dateStr,
         is_veg: dish?.is_veg ?? pick.is_veg,
       }
     })
