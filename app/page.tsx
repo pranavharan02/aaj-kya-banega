@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { ensureHousehold, getHouseholdId } from '@/lib/household'
@@ -10,44 +9,39 @@ import type { WeeklyMenu, MenuItem } from '@/lib/types'
 import { CUISINE_LABELS } from '@/lib/types'
 
 export default function Home() {
-  const router = useRouter()
   const [menu, setMenu] = useState<WeeklyMenu | null>(null)
   const [items, setItems] = useState<MenuItem[]>([])
   const [loading, setLoading] = useState(true)
   const [weekStart, setWeekStart] = useState(() => formatDate(getMonday()))
 
-  useEffect(() => {
-    loadMenu()
-  }, [weekStart])
-
-  async function loadMenu() {
+  const loadMenu = useCallback(async () => {
     setLoading(true)
     await ensureHousehold()
     const householdId = getHouseholdId()
-    if (!householdId) return
+    if (!householdId) { setLoading(false); return }
 
+    // Single query: fetch menu with items in one go
     const { data: menus } = await supabase
       .from('weekly_menus')
-      .select('*')
+      .select('*, menu_items:menu_items(*, dish:dishes(*))')
       .eq('household_id', householdId)
       .eq('week_start_date', weekStart)
       .order('created_at', { ascending: false })
       .limit(1)
 
     if (menus && menus.length > 0) {
-      setMenu(menus[0])
-      const { data: menuItems } = await supabase
-        .from('menu_items')
-        .select('*, dish:dishes(*)')
-        .eq('menu_id', menus[0].id)
-        .order('day_of_week')
-      setItems(menuItems || [])
+      const m = menus[0]
+      setMenu(m)
+      const sorted = (m.menu_items || []).sort((a: MenuItem, b: MenuItem) => a.day_of_week - b.day_of_week)
+      setItems(sorted)
     } else {
       setMenu(null)
       setItems([])
     }
     setLoading(false)
-  }
+  }, [weekStart])
+
+  useEffect(() => { loadMenu() }, [loadMenu])
 
   function shiftWeek(delta: number) {
     setWeekStart(shiftWeekStart(weekStart, delta))
@@ -61,14 +55,14 @@ export default function Home() {
     <div className="py-8">
       {/* Week selector */}
       <div className="flex items-center justify-between mb-8">
-        <button onClick={() => shiftWeek(-1)} className="p-2 rounded-lg hover:bg-[#F5F5F5] text-[#6B6B6B]">
+        <button onClick={() => shiftWeek(-1)} className="p-2 rounded-lg hover:bg-[#F5F5F5] text-[#6B6B6B]" aria-label="Previous week">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </button>
         <div className="text-center">
           <p className="text-sm text-[#6B6B6B]">Week of</p>
           <p className="text-lg font-semibold">{getWeekLabel(weekStart)}</p>
         </div>
-        <button onClick={() => shiftWeek(1)} className="p-2 rounded-lg hover:bg-[#F5F5F5] text-[#6B6B6B]">
+        <button onClick={() => shiftWeek(1)} className="p-2 rounded-lg hover:bg-[#F5F5F5] text-[#6B6B6B]" aria-label="Next week">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </button>
       </div>
@@ -98,9 +92,7 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {items.slice(0, 4).map(item => (
               <div key={item.id} className="bg-[#F5F5F5] rounded-2xl p-4">
-                <p className="text-xs text-[#6B6B6B]">
-                  {formatDateDisplay(item.date)}
-                </p>
+                <p className="text-xs text-[#6B6B6B]">{formatDateDisplay(item.date)}</p>
                 <p className="font-medium text-sm mt-1 truncate">{item.dish?.name_en}</p>
               </div>
             ))}

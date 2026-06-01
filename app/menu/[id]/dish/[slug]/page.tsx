@@ -152,16 +152,16 @@ export default function DishDetailPage() {
         >+</button>
       </div>
 
-      {/* Nutrition card */}
+      {/* Nutrition card — scales with servings */}
       {dish.calories && (
         <div className="bg-[#F5F5F5] rounded-2xl p-4 mb-6">
-          <p className="text-xs text-[#6B6B6B] mb-2">Per serving</p>
-          <div className="flex gap-4 text-sm">
-            <span className="font-medium">{dish.calories} cal</span>
-            <span>{dish.protein_g}g protein</span>
-            <span>{dish.carbs_g}g carbs</span>
-            <span>{dish.fat_g}g fat</span>
-            <span>{dish.fiber_g}g fiber</span>
+          <p className="text-xs text-[#6B6B6B] mb-2">Per serving ({servings} servings)</p>
+          <div className="flex gap-4 text-sm flex-wrap">
+            <span className="font-medium">{Math.round(dish.calories * scaleFactor)} cal</span>
+            <span>{Math.round((dish.protein_g || 0) * scaleFactor)}g protein</span>
+            <span>{Math.round((dish.carbs_g || 0) * scaleFactor)}g carbs</span>
+            <span>{Math.round((dish.fat_g || 0) * scaleFactor)}g fat</span>
+            <span>{Math.round((dish.fiber_g || 0) * scaleFactor)}g fiber</span>
           </div>
         </div>
       )}

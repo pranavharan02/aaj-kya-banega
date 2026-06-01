@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
+import { toast } from '@/components/Toast'
 import { supabase } from '@/lib/supabase'
 import type { ShoppingListItem } from '@/lib/types'
 
@@ -55,7 +56,7 @@ export default function ShoppingListPage() {
       text += '\n'
     }
     navigator.clipboard.writeText(text)
-    alert('Copied to clipboard!')
+    toast('Shopping list copied!')
   }
 
   function groupByCategory(items: ShoppingListItem[]): Record<string, ShoppingListItem[]> {

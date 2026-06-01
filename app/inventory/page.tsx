@@ -63,19 +63,23 @@ export default function InventoryPage() {
 
   async function updateQuantity(item: InventoryItem, newQuantity: number) {
     if (newQuantity <= 0) {
+      // Optimistic remove
+      setItems(prev => prev.filter(i => i.id !== item.id))
       await supabase.from('inventory').delete().eq('id', item.id)
     } else {
+      // Optimistic update
+      setItems(prev => prev.map(i => i.id === item.id ? { ...i, quantity: newQuantity } : i))
       await supabase
         .from('inventory')
         .update({ quantity: newQuantity, updated_at: new Date().toISOString() })
         .eq('id', item.id)
     }
-    await loadInventory()
   }
 
   async function removeItem(item: InventoryItem) {
+    // Optimistic remove
+    setItems(prev => prev.filter(i => i.id !== item.id))
     await supabase.from('inventory').delete().eq('id', item.id)
-    await loadInventory()
   }
 
   if (loading) return <div className="py-20 text-center text-[#6B6B6B]">Loading...</div>
