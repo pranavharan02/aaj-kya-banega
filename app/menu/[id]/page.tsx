@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { getWeekLabel } from '@/lib/dates'
+import { getWeekLabel, formatDateDisplay } from '@/lib/dates'
 import { CUISINE_LABELS, CUISINE_COLORS, ACCOMPANIMENT_LABELS, DAY_NAMES } from '@/lib/types'
 import type { WeeklyMenu, MenuItem } from '@/lib/types'
 
@@ -173,7 +173,7 @@ export default function MenuCalendarPage() {
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-[#6B6B6B]">
                     {DAY_NAMES[item.day_of_week]},{' '}
-                    {new Date(item.date + 'T12:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                    {formatDateDisplay(item.date)}
                   </p>
                   <p className="font-semibold text-base mt-0.5 truncate">{dish.name_en}</p>
                   <div className="flex gap-1.5 items-center mt-1 flex-wrap">

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { ensureHousehold, getHouseholdId } from '@/lib/household'
-import { getMonday, formatDate, getWeekLabel } from '@/lib/dates'
+import { getMonday, formatDate, formatDateDisplay, getWeekLabel, shiftWeekStart } from '@/lib/dates'
 import type { WeeklyMenu, MenuItem } from '@/lib/types'
 import { CUISINE_LABELS } from '@/lib/types'
 
@@ -50,9 +50,7 @@ export default function Home() {
   }
 
   function shiftWeek(delta: number) {
-    const d = new Date(weekStart + 'T12:00:00')
-    d.setDate(d.getDate() + delta * 7)
-    setWeekStart(formatDate(d))
+    setWeekStart(shiftWeekStart(weekStart, delta))
   }
 
   const vegCount = items.filter(i => i.dish?.is_veg).length
@@ -101,7 +99,7 @@ export default function Home() {
             {items.slice(0, 4).map(item => (
               <div key={item.id} className="bg-[#F5F5F5] rounded-2xl p-4">
                 <p className="text-xs text-[#6B6B6B]">
-                  {new Date(item.date + 'T12:00:00').toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })}
+                  {formatDateDisplay(item.date)}
                 </p>
                 <p className="font-medium text-sm mt-1 truncate">{item.dish?.name_en}</p>
               </div>
