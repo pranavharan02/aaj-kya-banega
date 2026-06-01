@@ -22,6 +22,7 @@ export interface Dish {
   description_hi: string | null
   description_mr: string | null
   tags: string[] | null
+  youtube_url: string | null
 }
 
 export interface Ingredient {

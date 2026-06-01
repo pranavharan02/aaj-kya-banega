@@ -88,7 +88,7 @@ export default function Home() {
         <div>
           {/* Stats row */}
           <div className="flex gap-2 mb-6 flex-wrap">
-            <span className="px-4 py-1.5 rounded-full bg-white text-[15px] font-medium shadow-sm">
+            <span className="px-4 py-1.5 rounded-full bg-white text-[15px] font-medium shadow">
               <span className="text-[#2E7D32]">{vegCount} veg</span>
               <span className="text-[#C5C0BA] mx-1.5">/</span>
               <span className="text-[#C62828]">{nvCount} non-veg</span>
@@ -131,7 +131,7 @@ export default function Home() {
 
           <Link
             href={`/menu/${menu.id}`}
-            className="block w-full text-center bg-[#2D2A26] text-white py-4 rounded-2xl font-semibold text-[17px] hover:bg-[#45403A] transition-colors shadow-sm"
+            className="block w-full text-center bg-[#2D2A26] text-white py-4 rounded-2xl font-semibold text-[17px] hover:bg-[#45403A] transition-colors shadow"
           >
             View Full Menu
           </Link>
@@ -145,7 +145,7 @@ export default function Home() {
           </p>
           <Link
             href={`/plan?week=${weekStart}`}
-            className="inline-block bg-[#2D2A26] text-white px-10 py-4 rounded-2xl font-semibold text-[17px] hover:bg-[#45403A] transition-colors shadow-sm"
+            className="inline-block bg-[#2D2A26] text-white px-10 py-4 rounded-2xl font-semibold text-[17px] hover:bg-[#45403A] transition-colors shadow"
           >
             Plan This Week's Menu
           </Link>

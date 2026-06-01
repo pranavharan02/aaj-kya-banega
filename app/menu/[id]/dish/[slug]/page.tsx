@@ -105,6 +105,14 @@ export default function DishDetailPage() {
               </span>
             )}
           </div>
+          {/* YouTube link */}
+          {dish.youtube_url && (
+            <a href={dish.youtube_url} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-3 px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.5 31.5 0 000 12a31.5 31.5 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.5 31.5 0 0024 12a31.5 31.5 0 00-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+              Watch video
+            </a>
+          )}
         </div>
       </div>
 
