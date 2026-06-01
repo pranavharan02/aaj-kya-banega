@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { getWeekLabel, formatDateDisplay } from '@/lib/dates'
@@ -15,6 +15,7 @@ const CUISINE_BG: Record<string, string> = {
 
 export default function MenuCalendarPage() {
   const params = useParams()
+  const router = useRouter()
   const menuId = params.id as string
   const [menu, setMenu] = useState<WeeklyMenu | null>(null)
   const [items, setItems] = useState<MenuItem[]>([])
@@ -90,6 +91,15 @@ export default function MenuCalendarPage() {
     toast('Menu unlocked')
   }
 
+  async function handleReset() {
+    if (!confirm('Delete this menu and start over?')) return
+    await supabase.from('shopping_lists').delete().eq('menu_id', menuId)
+    await supabase.from('menu_items').delete().eq('menu_id', menuId)
+    await supabase.from('weekly_menus').delete().eq('id', menuId)
+    toast('Menu deleted')
+    router.push(`/plan?week=${menu?.week_start_date || ''}`)
+  }
+
   function copyMaidLink(lang: string) {
     navigator.clipboard.writeText(`${window.location.origin}/maid/${menuId}?lang=${lang}`)
     toast(`${lang === 'hi' ? 'Hindi' : 'Marathi'} link copied!`)
@@ -150,7 +160,7 @@ export default function MenuCalendarPage() {
             <div
               key={item.id}
               className={`card p-5 relative group transition-all ${
-                isTarget ? 'ring-2 ring-[#2D2A26] ring-offset-2 ring-offset-[#FAF9F6] cursor-pointer' :
+                isTarget ? 'ring-2 ring-[#2D2A26] ring-offset-2 ring-offset-[#F5F0EA] cursor-pointer' :
                 isSource ? 'opacity-50' : ''
               }`}
               onClick={isTarget ? () => handleDaySwap(swapSource!, item.day_of_week) : undefined}
@@ -159,12 +169,12 @@ export default function MenuCalendarPage() {
               {!menu.is_finalized && swapSource === null && (
                 <div className="absolute top-4 right-4 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                   <button onClick={(e) => { e.stopPropagation(); setSwapSource(item.day_of_week) }}
-                    className="w-9 h-9 rounded-xl bg-[#FAF9F6] hover:bg-[#F0EDE8] flex items-center justify-center transition-colors" title="Move">
+                    className="w-9 h-9 rounded-xl bg-[#F5F0EA] hover:bg-[#F0EDE8] flex items-center justify-center transition-colors" title="Move">
                     <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 2L12 6M4 10L8 14L12 10" stroke="#2D2A26" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </button>
                   <button onClick={(e) => { e.stopPropagation(); handleSwap(item.day_of_week) }}
                     disabled={swapping === item.day_of_week}
-                    className="w-9 h-9 rounded-xl bg-[#FAF9F6] hover:bg-[#F0EDE8] flex items-center justify-center transition-colors" title="Replace">
+                    className="w-9 h-9 rounded-xl bg-[#F5F0EA] hover:bg-[#F0EDE8] flex items-center justify-center transition-colors" title="Replace">
                     {swapping === item.day_of_week ? (
                       <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="#2D2A26" strokeWidth="4" fill="none"/><path className="opacity-75" fill="#2D2A26" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
                     ) : (
@@ -217,9 +227,9 @@ export default function MenuCalendarPage() {
               <p className="font-semibold text-[17px]">Share with your maid</p>
               <div className="flex gap-3">
                 <button onClick={() => copyMaidLink('hi')}
-                  className="flex-1 bg-[#FAF9F6] py-3 rounded-xl text-[15px] font-medium hover:bg-[#F0EDE8] transition-colors">Copy Hindi link</button>
+                  className="flex-1 bg-[#F5F0EA] py-3 rounded-xl text-[15px] font-medium hover:bg-[#F0EDE8] transition-colors">Copy Hindi link</button>
                 <button onClick={() => copyMaidLink('mr')}
-                  className="flex-1 bg-[#FAF9F6] py-3 rounded-xl text-[15px] font-medium hover:bg-[#F0EDE8] transition-colors">Copy Marathi link</button>
+                  className="flex-1 bg-[#F5F0EA] py-3 rounded-xl text-[15px] font-medium hover:bg-[#F0EDE8] transition-colors">Copy Marathi link</button>
               </div>
             </div>
           )}
@@ -235,6 +245,12 @@ export default function MenuCalendarPage() {
           </div>
         </div>
       )}
+
+      {/* Reset menu */}
+      <button onClick={handleReset}
+        className="w-full mt-4 text-center text-[14px] text-[#C5C0BA] hover:text-[#C62828] py-3 transition-colors">
+        Reset menu and start over
+      </button>
     </div>
   )
 }

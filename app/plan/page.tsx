@@ -88,7 +88,7 @@ function PlanContent() {
               onClick={() => toggleCuisine(c)}
               className={`card p-5 text-left transition-all ${
                 selectedCuisines.includes(c)
-                  ? 'ring-2 ring-[#2D2A26] ring-offset-2 ring-offset-[#FAF9F6]'
+                  ? 'ring-2 ring-[#2D2A26] ring-offset-2 ring-offset-[#F5F0EA]'
                   : 'hover:shadow-md'
               }`}
             >

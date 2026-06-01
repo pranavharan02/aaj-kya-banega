@@ -81,7 +81,7 @@ Respond in JSON only:
           }],
         })
 
-        const text = message.content[0].type === 'text' ? message.content[0].text : ''
+        const text = message.content?.[0]?.type === 'text' ? message.content[0].text : ''
         const jsonMatch = text.match(/\{[\s\S]*\}/)
         if (jsonMatch) {
           const parsed = JSON.parse(jsonMatch[0])

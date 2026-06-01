@@ -136,18 +136,18 @@ export default function AddDishPage() {
         <div>
           <label className="text-sm font-medium block mb-1">Dish name (English) *</label>
           <input value={form.name_en} onChange={e => updateForm('name_en', e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm" placeholder="e.g. Paneer Tikka" />
+            className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm" placeholder="e.g. Paneer Tikka" />
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="text-sm font-medium block mb-1">Name (Hindi)</label>
             <input value={form.name_hi} onChange={e => updateForm('name_hi', e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm" />
+              className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm" />
           </div>
           <div>
             <label className="text-sm font-medium block mb-1">Name (Marathi)</label>
             <input value={form.name_mr} onChange={e => updateForm('name_mr', e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm" />
+              className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm" />
           </div>
         </div>
 
@@ -156,7 +156,7 @@ export default function AddDishPage() {
           <div>
             <label className="text-sm font-medium block mb-1">Cuisine</label>
             <select value={form.cuisine} onChange={e => updateForm('cuisine', e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm bg-white">
+              className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm bg-white">
               {(['tamil', 'north', 'marathi', 'bihari', 'custom'] as const).map(c => (
                 <option key={c} value={c}>{c === 'custom' ? 'Custom' : CUISINE_LABELS[c as CuisineType]}</option>
               ))}
@@ -166,11 +166,11 @@ export default function AddDishPage() {
             <label className="text-sm font-medium block mb-1">Type</label>
             <div className="flex gap-2 mt-1">
               <button onClick={() => updateForm('is_veg', true)}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-medium ${form.is_veg ? 'bg-green-100 text-[#2E7D32] border border-[#2E7D32]' : 'bg-[#F5F5F5]'}`}>
+                className={`flex-1 py-2.5 rounded-xl text-sm font-medium ${form.is_veg ? 'bg-green-100 text-[#2E7D32] border border-[#2E7D32]' : 'bg-[#F5F0EA]'}`}>
                 Veg
               </button>
               <button onClick={() => updateForm('is_veg', false)}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-medium ${!form.is_veg ? 'bg-red-100 text-[#C62828] border border-[#C62828]' : 'bg-[#F5F5F5]'}`}>
+                className={`flex-1 py-2.5 rounded-xl text-sm font-medium ${!form.is_veg ? 'bg-red-100 text-[#C62828] border border-[#C62828]' : 'bg-[#F5F0EA]'}`}>
                 Non-Veg
               </button>
             </div>
@@ -182,17 +182,17 @@ export default function AddDishPage() {
           <div>
             <label className="text-sm font-medium block mb-1">Prep (min)</label>
             <input type="number" value={form.prep_time_min} onChange={e => updateForm('prep_time_min', e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm" />
+              className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm" />
           </div>
           <div>
             <label className="text-sm font-medium block mb-1">Cook (min)</label>
             <input type="number" value={form.cook_time_min} onChange={e => updateForm('cook_time_min', e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm" />
+              className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm" />
           </div>
           <div>
             <label className="text-sm font-medium block mb-1">Difficulty</label>
             <select value={form.difficulty} onChange={e => updateForm('difficulty', e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm bg-white">
+              className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm bg-white">
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
@@ -204,7 +204,7 @@ export default function AddDishPage() {
         <div>
           <label className="text-sm font-medium block mb-1">Accompaniment</label>
           <select value={form.default_accompaniment} onChange={e => updateForm('default_accompaniment', e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm bg-white">
+            className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm bg-white">
             <option value="">None (standalone dish)</option>
             <option value="steamed-rice">Steamed Rice</option>
             <option value="roti">Roti</option>
@@ -221,21 +221,21 @@ export default function AddDishPage() {
           {ingredients.map((ing, i) => (
             <div key={i} className="flex gap-2 mb-2">
               <input value={ing.name} onChange={e => updateIngredient(i, 'name', e.target.value)}
-                placeholder="Ingredient" className="flex-1 px-3 py-2 rounded-xl border border-[#E0E0E0] text-sm" />
+                placeholder="Ingredient" className="flex-1 px-3 py-2 rounded-xl border border-[#E5DFD6] text-sm" />
               <input type="number" value={ing.quantity} onChange={e => updateIngredient(i, 'quantity', e.target.value)}
-                placeholder="Qty" className="w-20 px-3 py-2 rounded-xl border border-[#E0E0E0] text-sm" />
+                placeholder="Qty" className="w-20 px-3 py-2 rounded-xl border border-[#E5DFD6] text-sm" />
               <select value={ing.unit} onChange={e => updateIngredient(i, 'unit', e.target.value)}
-                className="px-2 py-2 rounded-xl border border-[#E0E0E0] text-sm bg-white">
+                className="px-2 py-2 rounded-xl border border-[#E5DFD6] text-sm bg-white">
                 {['pieces', 'kg', 'g', 'cup', 'tbsp', 'tsp', 'mL', 'L'].map(u => (
                   <option key={u} value={u}>{u}</option>
                 ))}
               </select>
               {ingredients.length > 1 && (
-                <button onClick={() => removeIngredient(i)} className="text-[#6B6B6B] hover:text-[#C62828]">x</button>
+                <button onClick={() => removeIngredient(i)} className="text-[#8C8680] hover:text-[#C62828]">x</button>
               )}
             </div>
           ))}
-          <button onClick={addIngredientRow} className="text-sm text-[#6B6B6B] hover:text-[#1A1A1A]">
+          <button onClick={addIngredientRow} className="text-sm text-[#8C8680] hover:text-[#2D2A26]">
             + Add ingredient
           </button>
         </div>
@@ -245,15 +245,15 @@ export default function AddDishPage() {
           <label className="text-sm font-medium block mb-2">Recipe steps</label>
           {steps.map((step, i) => (
             <div key={i} className="flex gap-2 mb-2">
-              <span className="w-6 h-8 flex items-center justify-center text-xs text-[#6B6B6B]">{i + 1}.</span>
+              <span className="w-6 h-8 flex items-center justify-center text-xs text-[#8C8680]">{i + 1}.</span>
               <input value={step} onChange={e => updateStep(i, e.target.value)}
-                placeholder={`Step ${i + 1}`} className="flex-1 px-3 py-2 rounded-xl border border-[#E0E0E0] text-sm" />
+                placeholder={`Step ${i + 1}`} className="flex-1 px-3 py-2 rounded-xl border border-[#E5DFD6] text-sm" />
               {steps.length > 1 && (
-                <button onClick={() => removeStep(i)} className="text-[#6B6B6B] hover:text-[#C62828]">x</button>
+                <button onClick={() => removeStep(i)} className="text-[#8C8680] hover:text-[#C62828]">x</button>
               )}
             </div>
           ))}
-          <button onClick={addStep} className="text-sm text-[#6B6B6B] hover:text-[#1A1A1A]">
+          <button onClick={addStep} className="text-sm text-[#8C8680] hover:text-[#2D2A26]">
             + Add step
           </button>
         </div>
@@ -262,7 +262,7 @@ export default function AddDishPage() {
         <div>
           <label className="text-sm font-medium block mb-1">Description</label>
           <input value={form.description_en} onChange={e => updateForm('description_en', e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl border border-[#E0E0E0] text-sm"
+            className="w-full px-3 py-2.5 rounded-xl border border-[#E5DFD6] text-sm"
             placeholder="One-line description" />
         </div>
 
@@ -271,7 +271,7 @@ export default function AddDishPage() {
         <button
           onClick={handleSave}
           disabled={saving || !form.name_en}
-          className="w-full bg-[#1A1A1A] text-white py-3.5 rounded-xl font-medium text-base hover:bg-[#333] transition-colors disabled:opacity-50"
+          className="w-full bg-[#2D2A26] text-white py-3.5 rounded-xl font-medium text-base hover:bg-[#333] transition-colors disabled:opacity-50"
         >
           {saving ? 'Saving...' : 'Save Dish'}
         </button>

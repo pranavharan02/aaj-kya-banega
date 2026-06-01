@@ -83,13 +83,17 @@ export default function ShoppingListPage() {
   }
 
   async function togglePurchased(ingredientId: string) {
-    setDayItems(prev => prev.map(i =>
-      i.ingredientId === ingredientId ? { ...i, purchased: !i.purchased } : i
-    ))
-    // Update all shopping list entries for this ingredient
+    // Read current state BEFORE optimistic update
     const item = dayItems.find(i => i.ingredientId === ingredientId)
-    if (item?.shoppingListId) {
-      await supabase.from('shopping_lists').update({ is_purchased: !item.purchased }).eq('ingredient_id', ingredientId).eq('menu_id', menuId)
+    if (!item) return
+    const newPurchased = !item.purchased
+    // Optimistic UI
+    setDayItems(prev => prev.map(i =>
+      i.ingredientId === ingredientId ? { ...i, purchased: newPurchased } : i
+    ))
+    // Persist
+    if (item.shoppingListId) {
+      await supabase.from('shopping_lists').update({ is_purchased: newPurchased }).eq('ingredient_id', ingredientId).eq('menu_id', menuId)
     }
   }
 

@@ -64,11 +64,11 @@ export default function DishDetailPage() {
 
   const scaleFactor = dish ? servings / dish.default_servings : 1
 
-  if (!dish) return <div className="py-20 text-center text-[#6B6B6B]">Loading...</div>
+  if (!dish) return <div className="py-20 text-center text-[#8C8680]">Loading...</div>
 
   return (
     <div className="py-8">
-      <Link href={`/menu/${menuId}`} className="text-sm text-[#6B6B6B] hover:text-[#1A1A1A] mb-4 inline-block">
+      <Link href={`/menu/${menuId}`} className="text-sm text-[#8C8680] hover:text-[#2D2A26] mb-4 inline-block">
         &larr; Back to menu
       </Link>
 
@@ -100,7 +100,7 @@ export default function DishDetailPage() {
               {dish.is_veg ? 'Veg' : 'Non-Veg'}
             </span>
             {dish.default_accompaniment && (
-              <span className="px-2.5 py-0.5 rounded-full text-xs bg-[#F5F5F5]">
+              <span className="px-2.5 py-0.5 rounded-full text-xs bg-[#F5F0EA]">
                 + {ACCOMPANIMENT_LABELS[dish.default_accompaniment] || dish.default_accompaniment}
               </span>
             )}
@@ -117,13 +117,13 @@ export default function DishDetailPage() {
       </div>
 
       {/* Language toggle */}
-      <div className="flex gap-1 bg-[#F5F5F5] rounded-xl p-1 mb-6 w-fit">
+      <div className="flex gap-1 bg-[#F5F0EA] rounded-xl p-1 mb-6 w-fit">
         {(['en', 'hi', 'mr'] as Language[]).map(l => (
           <button
             key={l}
             onClick={() => setLang(l)}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-              lang === l ? 'bg-[#1A1A1A] text-white' : 'text-[#6B6B6B] hover:text-[#1A1A1A]'
+              lang === l ? 'bg-[#2D2A26] text-white' : 'text-[#8C8680] hover:text-[#2D2A26]'
             }`}
           >
             {l === 'en' ? 'EN' : l === 'hi' ? 'हिंदी' : 'मराठी'}
@@ -139,8 +139,8 @@ export default function DishDetailPage() {
           { label: 'Difficulty', value: dish.difficulty },
           { label: 'Servings', value: `${servings}` },
         ].map(m => (
-          <div key={m.label} className="bg-[#F5F5F5] rounded-xl p-3 text-center">
-            <p className="text-xs text-[#6B6B6B]">{m.label}</p>
+          <div key={m.label} className="bg-[#F5F0EA] rounded-xl p-3 text-center">
+            <p className="text-xs text-[#8C8680]">{m.label}</p>
             <p className="font-medium text-sm capitalize">{m.value}</p>
           </div>
         ))}
@@ -148,22 +148,22 @@ export default function DishDetailPage() {
 
       {/* Servings adjuster */}
       <div className="flex items-center gap-3 mb-6">
-        <span className="text-sm text-[#6B6B6B]">Servings:</span>
+        <span className="text-sm text-[#8C8680]">Servings:</span>
         <button
           onClick={() => setServings(Math.max(1, servings - 1))}
-          className="w-8 h-8 rounded-lg bg-[#F5F5F5] hover:bg-[#EBEBEB] flex items-center justify-center font-medium"
+          className="w-8 h-8 rounded-lg bg-[#F5F0EA] hover:bg-[#EBEBEB] flex items-center justify-center font-medium"
         >-</button>
         <span className="font-medium w-6 text-center">{servings}</span>
         <button
           onClick={() => setServings(Math.min(10, servings + 1))}
-          className="w-8 h-8 rounded-lg bg-[#F5F5F5] hover:bg-[#EBEBEB] flex items-center justify-center font-medium"
+          className="w-8 h-8 rounded-lg bg-[#F5F0EA] hover:bg-[#EBEBEB] flex items-center justify-center font-medium"
         >+</button>
       </div>
 
       {/* Nutrition card — scales with servings */}
       {dish.calories && (
-        <div className="bg-[#F5F5F5] rounded-2xl p-4 mb-6">
-          <p className="text-xs text-[#6B6B6B] mb-2">Per serving ({servings} servings)</p>
+        <div className="bg-[#F5F0EA] rounded-2xl p-4 mb-6">
+          <p className="text-xs text-[#8C8680] mb-2">Per serving ({servings} servings)</p>
           <div className="flex gap-4 text-sm flex-wrap">
             <span className="font-medium">{Math.round(dish.calories * scaleFactor)} cal</span>
             <span>{Math.round((dish.protein_g || 0) * scaleFactor)}g protein</span>
@@ -181,9 +181,9 @@ export default function DishDetailPage() {
         </h2>
         <div className="space-y-2">
           {ingredients.map(ing => (
-            <div key={ing.id} className="flex justify-between items-center py-2 border-b border-[#F5F5F5]">
+            <div key={ing.id} className="flex justify-between items-center py-2 border-b border-[#F5F0EA]">
               <span className="text-sm">{getIngredientName(ing)}</span>
-              <span className="text-sm text-[#6B6B6B]">
+              <span className="text-sm text-[#8C8680]">
                 {ing.unit === 'to taste' ? 'to taste' :
                   `${(ing.quantity * scaleFactor).toFixed(ing.quantity * scaleFactor % 1 === 0 ? 0 : 1)} ${ing.unit}`}
               </span>
@@ -200,7 +200,7 @@ export default function DishDetailPage() {
         <div className="space-y-4">
           {steps.map(step => (
             <div key={step.id} className="flex gap-3">
-              <span className="w-7 h-7 rounded-full bg-[#1A1A1A] text-white flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5">
+              <span className="w-7 h-7 rounded-full bg-[#2D2A26] text-white flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5">
                 {step.step_number}
               </span>
               <p className="text-sm leading-relaxed">{getStepText(step)}</p>

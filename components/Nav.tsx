@@ -15,7 +15,7 @@ export function Nav() {
 
   return (
     <nav className="flex items-center justify-between py-5">
-      <Link href="/" className="text-[22px] font-bold tracking-tight text-[#2D2A26]">
+      <Link href="/" className="text-[28px] font-extrabold tracking-tight text-[#2D2A26] leading-none">
         आज क्या बनेगा?
       </Link>
       <div className="flex gap-1 p-1 rounded-2xl bg-[#FFFDF9] border border-[#E5DFD6]" style={{boxShadow:'0 1px 4px rgba(45,42,38,0.04)'}}>

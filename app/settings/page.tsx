@@ -48,7 +48,7 @@ export default function SettingsPage() {
     setCuisines(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])
   }
 
-  if (loading) return <div className="py-20 text-center text-[#6B6B6B]">Loading...</div>
+  if (loading) return <div className="py-20 text-center text-[#8C8680]">Loading...</div>
 
   return (
     <div className="py-8">
@@ -59,9 +59,9 @@ export default function SettingsPage() {
         <div>
           <label className="text-sm font-medium block mb-2">Default servings</label>
           <div className="flex items-center gap-3">
-            <button onClick={() => setServings(Math.max(1, servings - 1))} className="w-10 h-10 rounded-xl bg-[#F5F5F5] hover:bg-[#EBEBEB] flex items-center justify-center font-medium">-</button>
+            <button onClick={() => setServings(Math.max(1, servings - 1))} className="w-10 h-10 rounded-xl bg-[#F5F0EA] hover:bg-[#EBEBEB] flex items-center justify-center font-medium">-</button>
             <span className="text-lg font-medium w-8 text-center">{servings}</span>
-            <button onClick={() => setServings(Math.min(10, servings + 1))} className="w-10 h-10 rounded-xl bg-[#F5F5F5] hover:bg-[#EBEBEB] flex items-center justify-center font-medium">+</button>
+            <button onClick={() => setServings(Math.min(10, servings + 1))} className="w-10 h-10 rounded-xl bg-[#F5F0EA] hover:bg-[#EBEBEB] flex items-center justify-center font-medium">+</button>
           </div>
         </div>
 
@@ -74,7 +74,7 @@ export default function SettingsPage() {
             max={7}
             value={vegDays}
             onChange={e => setVegDays(Number(e.target.value))}
-            className="w-full accent-[#1A1A1A]"
+            className="w-full accent-[#2D2A26]"
           />
         </div>
 
@@ -88,8 +88,8 @@ export default function SettingsPage() {
                 onClick={() => toggleCuisine(c)}
                 className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                   cuisines.includes(c)
-                    ? 'bg-[#1A1A1A] text-white'
-                    : 'bg-[#F5F5F5] text-[#1A1A1A] hover:bg-[#EBEBEB]'
+                    ? 'bg-[#2D2A26] text-white'
+                    : 'bg-[#F5F0EA] text-[#2D2A26] hover:bg-[#EBEBEB]'
                 }`}
               >
                 {CUISINE_LABELS[c]}
@@ -105,7 +105,7 @@ export default function SettingsPage() {
             <button
               onClick={() => setMaidLang('hi')}
               className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                maidLang === 'hi' ? 'bg-[#1A1A1A] text-white' : 'bg-[#F5F5F5] hover:bg-[#EBEBEB]'
+                maidLang === 'hi' ? 'bg-[#2D2A26] text-white' : 'bg-[#F5F0EA] hover:bg-[#EBEBEB]'
               }`}
             >
               Hindi
@@ -113,7 +113,7 @@ export default function SettingsPage() {
             <button
               onClick={() => setMaidLang('mr')}
               className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                maidLang === 'mr' ? 'bg-[#1A1A1A] text-white' : 'bg-[#F5F5F5] hover:bg-[#EBEBEB]'
+                maidLang === 'mr' ? 'bg-[#2D2A26] text-white' : 'bg-[#F5F0EA] hover:bg-[#EBEBEB]'
               }`}
             >
               Marathi
@@ -123,14 +123,14 @@ export default function SettingsPage() {
 
         <button
           onClick={saveSettings}
-          className="w-full bg-[#1A1A1A] text-white py-3.5 rounded-xl font-medium text-base hover:bg-[#333] transition-colors"
+          className="w-full bg-[#2D2A26] text-white py-3.5 rounded-xl font-medium text-base hover:bg-[#333] transition-colors"
         >
           {saved ? 'Saved!' : 'Save Settings'}
         </button>
 
         {/* Add dish link */}
-        <div className="border-t border-[#E0E0E0] pt-6">
-          <Link href="/add-dish" className="text-sm text-[#6B6B6B] hover:text-[#1A1A1A]">
+        <div className="border-t border-[#E5DFD6] pt-6">
+          <Link href="/add-dish" className="text-sm text-[#8C8680] hover:text-[#2D2A26]">
             + Add a custom dish to the database
           </Link>
         </div>

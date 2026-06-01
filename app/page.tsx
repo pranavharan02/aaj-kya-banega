@@ -35,8 +35,7 @@ export default function Home() {
     if (menus && menus.length > 0) {
       const m = menus[0]
       setMenu(m)
-      const sorted = (m.menu_items || []).sort((a: MenuItem, b: MenuItem) => a.day_of_week - b.day_of_week)
-      setItems(sorted)
+      setItems(m.menu_items || [])
     } else {
       setMenu(null)
       setItems([])
@@ -74,11 +73,11 @@ export default function Home() {
           {[1,2,3].map(i => (
             <div key={i} className="card p-5 animate-pulse">
               <div className="flex gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-[#F0EDE8]" />
+                <div className="w-16 h-16 rounded-2xl bg-[#F5F0EA]" />
                 <div className="flex-1 space-y-2 py-1">
-                  <div className="h-3 w-20 rounded bg-[#F0EDE8]" />
-                  <div className="h-4 w-40 rounded bg-[#F0EDE8]" />
-                  <div className="h-3 w-28 rounded bg-[#F0EDE8]" />
+                  <div className="h-3 w-20 rounded bg-[#F5F0EA]" />
+                  <div className="h-4 w-40 rounded bg-[#F5F0EA]" />
+                  <div className="h-3 w-28 rounded bg-[#F5F0EA]" />
                 </div>
               </div>
             </div>
