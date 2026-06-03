@@ -10,6 +10,9 @@ const CUISINES: CuisineType[] = ['tamil', 'north', 'marathi', 'bihari']
 const CUISINE_EMOJI: Record<CuisineType, string> = {
   tamil: '🥥', north: '🫓', marathi: '🌶', bihari: '🫘',
 }
+const CUISINE_BG: Record<CuisineType, string> = {
+  tamil: '#E8D5C4', north: '#F5E6CC', marathi: '#D4E8D4', bihari: '#E8DCC8',
+}
 
 export default function PlanPage() {
   return (
@@ -86,14 +89,18 @@ function PlanContent() {
             <button
               key={c}
               onClick={() => toggleCuisine(c)}
-              className={`card p-5 text-left transition-all ${
+              className={`card p-5 text-left transition-all border-2 ${
                 selectedCuisines.includes(c)
-                  ? 'ring-2 ring-[#2D2A26] ring-offset-2 ring-offset-[#F5F0EA]'
-                  : 'hover:shadow-md'
+                  ? 'border-[#2D2A26] shadow-lg'
+                  : 'border-transparent hover:shadow-md'
               }`}
+              style={selectedCuisines.includes(c) ? { background: CUISINE_BG[c] } : undefined}
             >
               <div className="text-2xl mb-2">{CUISINE_EMOJI[c]}</div>
               <div className="font-semibold text-[16px] text-[#2D2A26]">{CUISINE_LABELS[c]}</div>
+              {selectedCuisines.includes(c) && (
+                <div className="text-[12px] font-medium text-[#2D2A26] mt-1 opacity-60">Selected</div>
+              )}
             </button>
           ))}
         </div>
